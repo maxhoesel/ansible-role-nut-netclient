@@ -1,0 +1,26 @@
+galaxy_info:
+  role_name: nut_netclient
+  author: maxhoesel
+  description: Install and configure NUT to act as a netclient slave
+  company: ""
+
+  license: GPLv3
+
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+    - name: Debian
+      version:
+        - stretch
+        - buster
+
+  galaxy_tags:
+    - nut
+    - ups
+    - upsmon
+
+dependencies: []

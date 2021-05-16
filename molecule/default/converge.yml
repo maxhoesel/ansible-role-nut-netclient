@@ -1,0 +1,16 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Run nut_netclient
+      include_role:
+        name: maxhoesel.nut_netclient
+      vars:
+        nut_netclient_monitors:
+          - system: "myups@remotehost.localdomain"
+            powervalue: 1
+            username: monitor
+            password: a-secure-password
+            type: slave
+        nut_netclient_pollfreq: 4
+        nut_netclient_notifymsg_online: I (%s) am online!
+        nut_netclient_notifyflag_online: SYSLOG+WALL

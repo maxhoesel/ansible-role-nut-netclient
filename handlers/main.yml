@@ -1,0 +1,4 @@
+- name: restart nut-client
+  systemd:
+    name: nut-client
+    state: restarted

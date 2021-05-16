@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+
+{% for option in _nut_netclient_config %}
+{{ option | replace('nut_netclient_', '') | upper }} {{ lookup('vars', option) }}
+{% endfor %}
+
+{% for msg in _nut_netclient_notifymsgs %}
+NOTIFYMSG {{ msg | replace('nut_netclient_notifymsg_', '') | upper }} "{{ lookup('vars', msg) }}"
+{% endfor %}
+
+{% for flag in _nut_netclient_notifyflags %}
+NOTIFYFLAG {{ flag | replace('nut_netclient_notifyflag_', '') | upper }} {{ lookup('vars', flag) }}
+{% endfor %}
+
+{% for monitor in nut_netclient_monitors %}
+MONITOR {{ monitor.system }} {{ monitor.powervalue }} {{ monitor.username }} {{ monitor.password }} {{ monitor.type }}
+{% endfor %}

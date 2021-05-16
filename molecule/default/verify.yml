@@ -1,0 +1,13 @@
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: Check nut-client status
+      systemd:
+        name: "nut-monitor"
+        enabled: yes
+        state: started
+      register: _nut_netclient_status
+      check_mode: yes
+    - name: Verify that nut-client is enabled and running
+      assert:
+        that: not _nut_netclient_status.changed

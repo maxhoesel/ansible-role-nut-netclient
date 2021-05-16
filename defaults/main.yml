@@ -1,0 +1,21 @@
+#nut_netclient_monitors: []
+#nut_netclient_notifymsg_<type>:
+#nut_netclient_notifyflag_<type>:
+
+nut_netclient_deadtime: 15
+nut_netclient_finaldelay: 5
+nut_netclient_hostsync: 15
+nut_netclient_minsupplies: 1
+nut_netclient_nocommwarntime: 300
+#nut_netclient_notifycmd:
+nut_netclient_pollfreq: 5
+nut_netclient_pollfreqalert: 5
+nut_netclient_powerdownflag: /etc/killpower
+nut_netclient_rbwarntime: 43200
+#nut_netclient_run_as_user:
+nut_netclient_shutdowncmd: '"/sbin/shutdown -h +0"'
+#nut_netclient_certpath:
+#nut_netclient_certident:
+#nut_netclient_certhost:
+#nut_netclient_certverify:
+#nut_netclient_forcessl:

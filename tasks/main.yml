@@ -1,0 +1,50 @@
+- name: Verify required variables are defined
+  assert:
+    that:
+      - nut_netclient_monitors is defined
+      - nut_netclient_monitors | length > 0
+
+- name: NUT is installed
+  apt:
+    name: nut
+
+# Almost all role variables map directly to a upsmon config parameter,
+# but there are a few exceptions that we need to handle separately.
+# In particular, we manually template out notify messages and flags, as well as monitors
+- name: Get defined variables
+  set_fact:
+    _nut_netclient_fullconfig: "{{ lookup('varnames', '^nut_netclient_', wantlist=True) }}"
+    _nut_netclient_notifymsgs: "{{ lookup('varnames', '^nut_netclient_notifymsg_', wantlist=True) }}"
+    _nut_netclient_notifyflags: "{{ lookup('varnames', '^nut_netclient_notifyflag_', wantlist=True) }}"
+- name: Set upsmon config variables
+  set_fact:
+    _nut_netclient_config: >
+      {{
+        _nut_netclient_fullconfig | difference(
+          _nut_netclient_notifymsgs + _nut_netclient_notifyflags + ['nut_netclient_monitors']
+        )
+      }}
+
+- name: NUT config is installed
+  template:
+    src: nut.conf.j2
+    dest: /etc/nut/nut.conf
+    owner: root
+    group: nut
+    mode: "640"
+  notify: restart nut-client
+
+- name: upsmon config is installed
+  template:
+    src: upsmon.conf.j2
+    dest: /etc/nut/upsmon.conf
+    owner: root
+    group: nut
+    mode: "640"
+  notify: restart nut-client
+
+- name: nut-client is enabled and running
+  systemd:
+    name: nut-client
+    enabled: yes
+    state: started
