@@ -9,7 +9,7 @@ Install NUT and upsmon on a target system and configure it to follow a remote UP
 ## Requirements
 
 - A host running one of the following distributions
-  - Ubuntu 20.04 LTS or newer
+  - Ubuntu 18.04 LTS or newer
   - Debian 9 or newer
 - Become privileges on the host
 
